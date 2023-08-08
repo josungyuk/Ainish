@@ -27,7 +27,7 @@ public class Member implements UserDetails {
     String email;
     String password;
     String username;
-    String imgUrl;
+    String image;
     String comment;
     @Enumerated(EnumType.STRING)
     Role role;

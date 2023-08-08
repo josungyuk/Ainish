@@ -32,17 +32,17 @@ public class CustomOauth2SuccessService implements OAuth2UserService<OAuth2UserR
 
         OauthAttributes attributes = OauthAttributes.of(registrationId, usernameAttributeName, oAuth2User.getAttributes());
 
-        Member member = saveOrUpdate(attributes);
-
-        UserDto user = new UserDto(member);
-        user.setId(member.getId());
+        Member member = saveOrUpdate(registrationId, attributes);
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority(member.getRole().getKey()))
         , attributes.getAttributes()
         , attributes.getNameAttributeKey());
     }
 
-    private Member saveOrUpdate(OauthAttributes attributes){
+    private Member saveOrUpdate(String registrationId, OauthAttributes attributes){
+        if(registrationId.equals("naver"))
+            attributes.setEmail("Naver:" + attributes.getEmail());
+
         Member member = memberJpaRepository.findByEmailOptional(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName()))
                 .orElse(attributes.toEntity());
