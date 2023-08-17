@@ -25,7 +25,7 @@ public class Member implements UserDetails {
     @Column(columnDefinition = "TINYINT(1)")
     Boolean active;
     String email;
-    String password;
+
     String username;
     String image;
     String comment;
@@ -46,6 +46,10 @@ public class Member implements UserDetails {
         this.username = name;
 
         return this;
+    }
+    @Override
+    public String getPassword() {
+        return null;
     }
 
     @Override

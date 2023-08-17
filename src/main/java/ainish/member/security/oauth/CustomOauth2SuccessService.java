@@ -3,7 +3,6 @@ package ainish.member.security.oauth;
 import ainish.member.entity.Member;
 import ainish.member.repository.MemberJpaRepository;
 import ainish.member.security.oauth.dto.OauthAttributes;
-import ainish.member.security.oauth.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -42,6 +41,8 @@ public class CustomOauth2SuccessService implements OAuth2UserService<OAuth2UserR
     private Member saveOrUpdate(String registrationId, OauthAttributes attributes){
         if(registrationId.equals("naver"))
             attributes.setEmail("Naver:" + attributes.getEmail());
+        else if(registrationId.equals("kakao"))
+            attributes.setEmail("Kakao:" + attributes.getEmail());
 
         Member member = memberJpaRepository.findByEmailOptional(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName()))
