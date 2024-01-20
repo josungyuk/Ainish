@@ -44,7 +44,7 @@ public class CustomOauth2SuccessService implements OAuth2UserService<OAuth2UserR
         else if(registrationId.equals("kakao"))
             attributes.setEmail("Kakao:" + attributes.getEmail());
 
-        Member member = memberJpaRepository.findByEmailOptional(attributes.getEmail())
+        Member member = memberJpaRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName()))
                 .orElse(attributes.toEntity());
 

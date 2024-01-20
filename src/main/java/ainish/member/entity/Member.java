@@ -1,5 +1,6 @@
 package ainish.member.entity;
 
+import ainish.config.BaseTimeEntity;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table
 @Entity
-public class Member implements UserDetails {
+public class Member extends BaseTimeEntity implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -25,7 +26,6 @@ public class Member implements UserDetails {
     @Column(columnDefinition = "TINYINT(1)")
     Boolean active;
     String email;
-
     String username;
     String image;
     String comment;
